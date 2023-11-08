@@ -1,0 +1,51 @@
+create database areas;
+Query OK, 1 row affected (0.01 sec)
+
+use areas ;
+Database changed
+mysql> create table areas(radius int(40),area int(90));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> desc areas ;
++--------+------+------+-----+---------+-------+
+| Field  | Type | Null | Key | Default | Extra |
++--------+------+------+-----+---------+-------+
+| radius | int  | YES  |     | NULL    |       |
+| area   | int  | YES  |     | NULL    |       |
++--------+------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create procedure Find_circle_area()
+    -> begin
+    -> declare r int;
+    -> declare r float;
+    -> set r =5;
+    -> loop_label: LOOP
+    -> if r>9 THEN
+    -> LEAVE loop_label;
+    -> END IF;
+    -> set a= 3.14*r*r;
+    -> insert into areas(radius,area)
+    -> values(r,a);
+    -> set r = r+1;
+    -> END LOOP;
+    -> END;
+    -> //
+
+mysql> delimiter ;
+mysql> call Find_circle_area();
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select* from areas;
++--------+------+
+| radius | area |
++--------+------+
+|      5 |   78 |
+|      6 |  113 |
+|      7 |  154 |
+|      8 |  201 |
+|      9 |  254 |
++--------+------+
+5 rows in set (0.00 sec)
+
+
